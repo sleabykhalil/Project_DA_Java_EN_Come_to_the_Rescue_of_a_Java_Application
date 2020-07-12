@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
 	private static int headacheCount = 0;    // initialize to 0
@@ -45,7 +46,7 @@ public class AnalyticsCounter {
 		}
 
 		// get result in Hashmap
-		symptomsMap = new HashMap<String, Integer>();
+		symptomsMap = new TreeMap<String, Integer>();
 		ReadSymptomDataFromFile fileReader = new ReadSymptomDataFromFile("Project02Eclipse/symptoms.txt");
 		for (String s : fileReader.GetSymptoms()) {
 			Integer counter = symptomsMap.get(s);
