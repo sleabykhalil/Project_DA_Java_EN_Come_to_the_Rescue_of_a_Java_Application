@@ -20,13 +20,11 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 	
 	/**
 	 * 
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
+	 * @param sourceFilepath a full or partial path to file with symptom strings in it, one per line
 	 */
-	public  ReadSymptomDataFromFile (String sourceFilepath, String destinationFilepath)
+	public  ReadSymptomDataFromFile (String sourceFilepath)
 	   {
-
 		this.sourceFilepath = sourceFilepath;
-	    this.destinationFilepath = destinationFilepath;
 	}
 
 	@Override
@@ -53,12 +51,17 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 
 
 	@Override
-	public Map<String,Symptom> CountSymptoms(List<String> symptomsList){
+	public Map<String,Integer> CountSymptoms(List<String> symptomsList){
+		/**
+		 * TreeMap will put Symptoms on alphabetic order
+		 */
 		Map symptomsMap = new TreeMap<String,Integer>();
 		try{
 			for (String s : symptomsList) {
 				Integer counter = (Integer) symptomsMap.get(s);
-
+				/**
+				 * if Symptom does not exist in the list , new (key value) will be created
+				 */
 				symptomsMap.put(s, (counter == null) ? 1 : counter + 1);}
 		}
 		catch (Exception e) {
