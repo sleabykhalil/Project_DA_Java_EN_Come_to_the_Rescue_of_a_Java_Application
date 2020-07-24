@@ -75,5 +75,9 @@ public class AnalyticsCounter {
 				writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n");
 			};
 			writer.close();
+
+
+
+
 	}
 }
