@@ -1,9 +1,6 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,7 +10,7 @@ public class AnalyticsCounter {
 	private static int pupilCount = 0;        // initialize to 0
 	*/
 
-	private static Map<String, Integer> symptomsMap;
+	//private static Map<String, Integer> symptomsMap;
 
 	public static void main(String args[]) throws Exception {
 		/*   ---- Old Code ----
@@ -53,13 +50,16 @@ public class AnalyticsCounter {
 
 
 		// get result in Hashmap
+
+		/*  khalil
 		symptomsMap = new TreeMap<String, Integer>();
-		ReadSymptomDataFromFile fileReader =
-				new ReadSymptomDataFromFile("Project02Eclipse/symptoms.txt");
+		FileController fileReader =
+				new FileController("Project02Eclipse/symptoms.txt");
 		for (String s : fileReader.GetSymptoms()) {
             Integer counter = symptomsMap.get(s);
             symptomsMap.put(s, (counter == null) ? 1 : counter + 1);
         }
+        */
 		/*   ---- Old Code ----
 
 			// next generate output
@@ -70,14 +70,23 @@ public class AnalyticsCounter {
 		*/
 			// write my results
 			//writer.write("-----------\n");
+
+		/* khalil
 		FileWriter writer = new FileWriter("result.out");
 		for (Map.Entry<String, Integer> symptom : symptomsMap.entrySet()) {
 				writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n");
 			};
 			writer.close();
 
+		*/
 
+		FileController fileController = new FileController();
+		fileController.setSourceFilepath("Project02Eclipse/symptoms.txt");
+		fileController.setDestinationFilepath("result.out");
 
+		SystemServices systemServices = new SystemServices();
+
+		fileController.WriteSymptoms(systemServices.CountSymptoms(fileController.ReadSymptoms()));
 
 	}
 }

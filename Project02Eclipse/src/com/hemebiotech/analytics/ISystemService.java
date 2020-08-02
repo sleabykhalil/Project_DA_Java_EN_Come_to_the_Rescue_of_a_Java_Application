@@ -14,7 +14,4 @@ public interface ISystemService {
      */
     Map<String,Integer> CountSymptoms(List<String> Symptoms);
 
-    Map<String,Integer>   ReadInputFile ();
-
-    void WrightOutputFile();
 }
