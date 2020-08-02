@@ -3,16 +3,15 @@ package com.hemebiotech.analytics;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 
 
 public class FileController implements IFileController {
 
-	/**
-	 * @param sourceFilepath file path to read symptoms from
-	 * @param destinationFilepath file path to write result in it
+	/*
+	 *  sourceFilepath a full or partial path to file with symptom strings in it, one per line
+	 *  destinationFilepath file path to write result in it
 	 */
 	private String sourceFilepath;
 	private String destinationFilepath;
@@ -33,21 +32,11 @@ public class FileController implements IFileController {
 		this.destinationFilepath = destinationFilepath;
 	}
 
-	/**
-	 * 
-	 * @param sourceFilepath a full or partial path to file with symptom strings in it, one per line
-	 */
-	/* khalil
-	public FileController(String sourceFilepath)
-	   {
-		this.sourceFilepath = sourceFilepath;
-	}
-	*/
 
 	@Override
 	public List<String> ReadSymptoms() {
-		ArrayList<String> result = new ArrayList<String>();
-		
+		ArrayList<String> result = new ArrayList<>();
+
 		if (sourceFilepath != null) {
 			try {
 				BufferedReader reader = new BufferedReader (new FileReader(sourceFilepath));
@@ -65,16 +54,16 @@ public class FileController implements IFileController {
 	}
 
 	@Override
-	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) throws IOException {
+	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) {
 		//s="result.out";
 		if (destinationFilepath != null) {
 
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFilepath));
-				/**
-				 * for  next lines using lambda will be equal to the following
-				 * 				for (Map.Entry<String, Integer> symptom : symptomsMap.entrySet()) {
-				 * 					writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n"); }
+				/*
+				  for  next lines using lambda will be equal to the following
+				  				for (Map.Entry<String, Integer> symptom : symptomsMap.entrySet()) {
+				  					writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n"); }
 				 */
 
 				symptomsMap.forEach((k,v)-> {
@@ -88,8 +77,6 @@ public class FileController implements IFileController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
-
 }
