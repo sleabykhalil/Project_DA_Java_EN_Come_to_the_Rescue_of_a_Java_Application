@@ -2,7 +2,6 @@ package com.hemebiotech.analytics;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -29,9 +28,8 @@ public interface IFileController {
 	/**
 	 * This function to write the results in file
 	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
-	 * @throws IOException
 	 */
-	void WriteSymptoms(TreeMap<String,Integer> symptomsMap) throws IOException;
+	void WriteSymptoms(TreeMap<String,Integer> symptomsMap) ;
 
 
 }
