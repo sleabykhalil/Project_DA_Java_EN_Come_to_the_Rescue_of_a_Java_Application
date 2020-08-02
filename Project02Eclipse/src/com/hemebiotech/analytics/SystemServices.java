@@ -12,12 +12,12 @@ public class SystemServices  implements ISystemService{
          */
        TreeMap symptomsMap = new TreeMap<String,Integer>();
         try{
-            for (String s : symptomsList) {
-                Integer counter = (Integer) symptomsMap.get(s);
+            for (String symptom : symptomsList) {
+                Integer counter = (Integer) symptomsMap.get(symptom);
                 /*
                  * if Symptom does not exist in the list , new (key value) will be created
                  */
-                symptomsMap.put(s, (counter == null) ? 1 : counter + 1);}
+                symptomsMap.put(symptom, (counter == null) ? 1 : counter + 1);}
         }
         catch (Exception e) {
             e.printStackTrace();
