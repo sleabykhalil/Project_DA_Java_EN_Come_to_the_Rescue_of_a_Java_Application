@@ -3,35 +3,58 @@ package com.hemebiotech.analytics;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.TreeMap;
 
 
 
 public class FileController implements IFileController {
 
-	/*
+	/**
 	 *  sourceFilepath a full or partial path to file with symptom strings in it, one per line
 	 *  destinationFilepath file path to write result in it
 	 */
+
+
+
 	private String sourceFilepath;
 	private String destinationFilepath;
 
-	public String getSourceFilepath() {
-		return sourceFilepath;
-	}
 
 	public void setSourceFilepath(String sourceFilepath) {
 		this.sourceFilepath = sourceFilepath;
-	}
-
-	public String getDestinationFilepath() {
-		return destinationFilepath;
 	}
 
 	public void setDestinationFilepath(String destinationFilepath) {
 		this.destinationFilepath = destinationFilepath;
 	}
 
+	/**
+	 * get File paths from defaultProperties file and set them to source and destination
+	 * @throws IOException
+	 */
+
+	public void getPaths() throws IOException {
+
+		Properties defaultProps = new Properties();
+		FileInputStream in = new FileInputStream("defaultProperties");
+		defaultProps.load(in);
+		in.close();
+
+		setSourceFilepath((String) defaultProps.get("source"));
+		setDestinationFilepath((String) defaultProps.get("destination"));
+
+	}
+
+	public FileController() {
+
+		try {
+			this.getPaths();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@Override
 	public List<String> ReadSymptoms() {
