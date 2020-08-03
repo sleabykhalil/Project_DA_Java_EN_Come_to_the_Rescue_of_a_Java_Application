@@ -3,8 +3,19 @@ package com.hemebiotech.analytics;
 import java.util.List;
 import java.util.TreeMap;
 
-public class SystemServices  implements ISystemService{
+/**
+ * Handle business logic
+ */
 
+public class SystemServices  implements ISystemService{
+    /**
+     * TreeMap used :
+     *      - Add each line as a key ,so duplicated erased.
+     *      - Add 1 to the value , so symptom counted.
+     * @param symptomsList list returned from ReadSymptoms
+     * @return TreeMap contains the result which will be send to WriteSymptoms
+     * @see FileController
+     */
     @Override
     public TreeMap<String,Integer> CountSymptoms(List<String> symptomsList){
         /*
