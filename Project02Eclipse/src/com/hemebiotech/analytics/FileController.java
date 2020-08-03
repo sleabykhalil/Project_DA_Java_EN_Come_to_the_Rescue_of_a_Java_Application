@@ -7,6 +7,10 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 
+/**
+ * Handle reading and writing to files
+ * files paths can be changed from properties file named defaultProperties
+ */
 
 public class FileController implements IFileController {
 
@@ -15,11 +19,8 @@ public class FileController implements IFileController {
 	 *  destinationFilepath file path to write result in it
 	 */
 
-
-
 	private String sourceFilepath;
 	private String destinationFilepath;
-
 
 	public void setSourceFilepath(String sourceFilepath) {
 		this.sourceFilepath = sourceFilepath;
@@ -56,6 +57,10 @@ public class FileController implements IFileController {
 
 	}
 
+	/**
+	 * Read symptoms from input file
+	 * @return List of string every element contains line from the file ,one symptom par line
+	 */
 	@Override
 	public List<String> ReadSymptoms() {
 		ArrayList<String> result = new ArrayList<>();
@@ -76,6 +81,10 @@ public class FileController implements IFileController {
 		return result;
 	}
 
+	/**
+	 * Write symptoms in output file after counting
+	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
+	 */
 	@Override
 	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) {
 		//s="result.out";
