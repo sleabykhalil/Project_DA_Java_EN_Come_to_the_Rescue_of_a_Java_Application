@@ -5,11 +5,6 @@ import java.util.TreeMap;
 
 /**
  *
- * Anything that will read symptom data from a source
- * The important part is, the return value from the operation, which is a list of strings,
- * that may contain many duplications
- * 
- * The implementation does not need to order the list
  * Read list of symptoms from input file and write symptoms in result file,
  * @see ISystemService the results are counted and ordered
  */

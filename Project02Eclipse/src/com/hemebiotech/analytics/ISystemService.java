@@ -3,6 +3,12 @@ package com.hemebiotech.analytics;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * All functionality can be add here ,
+ * there is one functionality now:
+ *      Counting Symptoms
+ */
+
 public interface ISystemService {
 
     /**

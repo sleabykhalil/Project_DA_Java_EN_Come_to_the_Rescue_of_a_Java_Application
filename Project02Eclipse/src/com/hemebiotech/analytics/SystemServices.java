@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- * All functionality can be add here ,
- * there is one functionality now:
- *      Counting Symptoms
+ * Handle business logic
  */
 
 public class SystemServices  implements ISystemService{
