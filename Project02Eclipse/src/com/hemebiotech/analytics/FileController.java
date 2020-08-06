@@ -32,26 +32,28 @@ public class FileController implements IFileController {
 
 	/**
 	 * get File paths from defaultProperties file and set them to source and destination
-	 * @throws IOException
+	 *
 	 */
 
-	public void getPaths() throws IOException {
+	public void getPaths()  {
+		try {
+			Properties defaultProps = new Properties();
+			FileInputStream in = new FileInputStream("defaultProperties");
+			defaultProps.load(in);
+			in.close();
 
-		Properties defaultProps = new Properties();
-		FileInputStream in = new FileInputStream("defaultProperties");
-		defaultProps.load(in);
-		in.close();
-
-		setSourceFilepath((String) defaultProps.get("source"));
-		setDestinationFilepath((String) defaultProps.get("destination"));
-
+			setSourceFilepath((String) defaultProps.get("source"));
+			setDestinationFilepath((String) defaultProps.get("destination"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public FileController() {
 
 		try {
 			this.getPaths();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -87,7 +89,6 @@ public class FileController implements IFileController {
 	 */
 	@Override
 	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) {
-		//s="result.out";
 		if (destinationFilepath != null) {
 
 			try {
