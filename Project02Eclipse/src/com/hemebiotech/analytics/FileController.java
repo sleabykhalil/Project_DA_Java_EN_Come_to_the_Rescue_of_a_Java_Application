@@ -32,26 +32,35 @@ public class FileController implements IFileController {
 
 	/**
 	 * get File paths from defaultProperties file and set them to source and destination
-	 * @throws IOException
+	 * @exception FileNotFoundException files name and path fixed as default
 	 */
 
-	public void getPaths() throws IOException {
+	public void getPaths()  {
+		try {
+			Properties defaultProps = new Properties();
+			FileInputStream in = new FileInputStream("defaultProperties");
+			defaultProps.load(in);
+			in.close();
 
-		Properties defaultProps = new Properties();
-		FileInputStream in = new FileInputStream("defaultProperties");
-		defaultProps.load(in);
-		in.close();
-
-		setSourceFilepath((String) defaultProps.get("source"));
-		setDestinationFilepath((String) defaultProps.get("destination"));
-
+			sourceFilepath = (String) defaultProps.get("source");
+			destinationFilepath = (String) defaultProps.get("destination");
+		} catch (FileNotFoundException e){
+			sourceFilepath = "Project02Eclipse/symptoms.txt";
+			destinationFilepath = "result.out";
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * Constructor read paths from properties file
+	 */
 	public FileController() {
 
 		try {
 			this.getPaths();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -64,7 +73,6 @@ public class FileController implements IFileController {
 	@Override
 	public List<String> ReadSymptoms() {
 		ArrayList<String> result = new ArrayList<>();
-
 		if (sourceFilepath != null) {
 			try {
 				BufferedReader reader = new BufferedReader (new FileReader(sourceFilepath));
@@ -76,6 +84,7 @@ public class FileController implements IFileController {
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("Input file not found");
 			}
 		}
 		return result;
@@ -87,7 +96,6 @@ public class FileController implements IFileController {
 	 */
 	@Override
 	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) {
-		//s="result.out";
 		if (destinationFilepath != null) {
 
 			try {
@@ -103,6 +111,7 @@ public class FileController implements IFileController {
 						writer.write(k + " : " + v + "\n");
 					} catch (IOException e) {
 						e.printStackTrace();
+						System.out.println("Output file cannot be created");
 					}
 				});
 				writer.close();
