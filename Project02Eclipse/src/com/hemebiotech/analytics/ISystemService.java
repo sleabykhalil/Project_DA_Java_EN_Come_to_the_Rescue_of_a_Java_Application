@@ -1,5 +1,6 @@
 package com.hemebiotech.analytics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,15 @@ public interface ISystemService {
      *  - key is Symptom
      *  - value is the counter
      *
-     * @param Symptoms list returns from GetSymptoms function
+     * @param symptoms list returns from GetSymptoms function
      * @return Map contains all items without duplicates as keys and how many times they appears as values
      */
-    Map<String,Integer> countSymptoms(List<String> Symptoms);
+    Map<String,Integer> countSymptoms(List<String> symptoms);
 
+    /**
+     * sort symptoms alphabetically
+     * @param symptoms
+     * @return
+     */
+    List<String> sortSymptoms(List<String> symptoms);
 }
