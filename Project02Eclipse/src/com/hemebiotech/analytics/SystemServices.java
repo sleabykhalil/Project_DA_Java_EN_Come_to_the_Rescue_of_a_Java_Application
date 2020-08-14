@@ -17,7 +17,7 @@ public class SystemServices  implements ISystemService{
      * @see FileController
      */
     @Override
-    public TreeMap<String,Integer> CountSymptoms(List<String> symptomsList){
+    public TreeMap countSymptoms(List<String> symptomsList){
         /*
          * TreeMap will put Symptoms on alphabetic order
          */
@@ -35,8 +35,4 @@ public class SystemServices  implements ISystemService{
         }
         return symptomsMap;
     }
-
-
-
-
 }
