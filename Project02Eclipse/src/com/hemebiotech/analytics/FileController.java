@@ -14,6 +14,7 @@ import java.util.TreeMap;
 
 public class FileController implements IFileController {
 
+
 	/**
 	 *  sourceFilepath a full or partial path to file with symptom strings in it, one per line
 	 *  destinationFilepath file path to write result in it
@@ -71,7 +72,7 @@ public class FileController implements IFileController {
 	 * @return List of string every element contains line from the file ,one symptom par line
 	 */
 	@Override
-	public List<String> ReadSymptoms() {
+	public List<String> readSymptoms() {
 		ArrayList<String> result = new ArrayList<>();
 		if (sourceFilepath != null) {
 			try {
@@ -95,7 +96,7 @@ public class FileController implements IFileController {
 	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
 	 */
 	@Override
-	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) {
+	public void writeSymptoms(TreeMap<String, Integer> symptomsMap) {
 		if (destinationFilepath != null) {
 
 			try {

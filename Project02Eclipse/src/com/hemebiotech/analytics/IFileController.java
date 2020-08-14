@@ -16,13 +16,13 @@ public interface IFileController {
 	 * 
 	 * @return a raw listing of all Symptoms obtained from a data source, duplicates are possible/probable
 	 */
-	List<String> ReadSymptoms ();
+	List<String> readSymptoms ();
 
 	/**
 	 * This function to write the results in file
 	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
 	 */
-	void WriteSymptoms(TreeMap<String,Integer> symptomsMap) ;
+	void writeSymptoms(TreeMap<String,Integer> symptomsMap) ;
 
 
 }

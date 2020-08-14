@@ -19,6 +19,6 @@ public interface ISystemService {
      * @param Symptoms list returns from GetSymptoms function
      * @return Map contains all items without duplicates as keys and how many times they appears as values
      */
-    Map<String,Integer> CountSymptoms(List<String> Symptoms);
+    Map<String,Integer> countSymptoms(List<String> Symptoms);
 
 }
