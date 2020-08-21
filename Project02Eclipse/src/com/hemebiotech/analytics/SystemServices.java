@@ -1,10 +1,6 @@
 package com.hemebiotech.analytics;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Handle business logic
@@ -20,14 +16,16 @@ public class SystemServices  implements ISystemService{
      * @see FileController
      */
     @Override
-    public TreeMap countSymptoms(List<String> symptomsList){
+    public List<Symptom> countSymptoms(List<String> symptomsList){
 
-        symptomsList = sortSymptoms(symptomsList);
+        //symptomsList = sortSymptoms(symptomsList);
 
         /*
          * TreeMap will put Symptoms on alphabetic order
          */
-       TreeMap symptomsMap = new TreeMap<String,Integer>();
+       Map symptomsMap = new HashMap<String,Integer>();
+       List<Symptom> symptomsListCounted= new ArrayList<Symptom>();
+
         try{
             for (String symptom : symptomsList) {
                 Integer counter = (Integer) symptomsMap.get(symptom);
@@ -36,18 +34,16 @@ public class SystemServices  implements ISystemService{
                  */
                 symptomsMap.put(symptom, (counter == null) ? 1 : counter + 1);}
 
-            List<Symptom> symptomsListFinal= new ArrayList<Symptom>();
             symptomsMap.forEach((k,v)-> {
-                symptomsListFinal.add(new Symptom((String)k,(Integer)v));
+                symptomsListCounted.add(new Symptom((String)k,(Integer)v));
 
             });
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
-        return symptomsMap;
-    }
+        return symptomsListCounted;
+   }
 
     /**
      * another way to sort
@@ -56,24 +52,9 @@ public class SystemServices  implements ISystemService{
      * @return sorted list
      */
     @Override
-    public List<String> sortSymptoms(List<String> symptoms) {
-        try {
-            String symptomHolderForSort;
-            for (int i=0; i<(symptoms.size()) ; i++) {
-                for (int j= 0; j < symptoms.size(); j++) {
-                    if ((symptoms.get(i).compareToIgnoreCase(symptoms.get(j).toUpperCase())) < 0) {
-                        symptomHolderForSort = symptoms.get(i);
-                        symptoms.set(i, symptoms.get(j));
-                        symptoms.set(j, symptomHolderForSort);
-                    }
-                }
-            }
+    public List<Symptom> sortSymptoms(List<Symptom> symptoms) {
 
-            return symptoms;
-        } catch (Exception e) {
-            System.out.println("nothing in the list");
-            return null;
-        }
-
+       symptoms.sort(Comparator.comparing(Symptom::getSymptomName));
+       return symptoms;
     }
 }

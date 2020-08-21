@@ -1,6 +1,9 @@
 package com.hemebiotech.analytics;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *	 This is an application for :
  *	 	- Read Symptoms from Text file
@@ -23,9 +26,13 @@ public class AnalyticsCounter {
 	public static void symptomCounter(){
 		FileController fileController = new FileController();
 		SystemServices systemServices = new SystemServices();
+		List<String> symptomsList;
+		List<Symptom> symptomCountedList = new ArrayList<>();
+		List<Symptom> symptomCountedOrderedList = new ArrayList<Symptom>();
 
-		// write output ( count and sort (read input file()) )
-
-		fileController.writeSymptoms(systemServices.countSymptoms(fileController.readSymptoms()));
+		symptomsList = fileController.readSymptoms();
+		symptomCountedList = systemServices.countSymptoms(symptomsList);
+		symptomCountedOrderedList = systemServices.sortSymptoms(symptomCountedList);
+		fileController.writeSymptoms((ArrayList<Symptom>) symptomCountedOrderedList);
 	}
 }
