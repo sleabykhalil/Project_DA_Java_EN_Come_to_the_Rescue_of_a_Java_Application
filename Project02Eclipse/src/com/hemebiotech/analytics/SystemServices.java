@@ -1,6 +1,10 @@
 package com.hemebiotech.analytics;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Handle business logic
@@ -8,36 +12,29 @@ import java.util.*;
 
 public class SystemServices  implements ISystemService{
     /**
-     * TreeMap used :
+     * HashMap used :
      *      - Add each line as a key ,so duplicated erased.
      *      - Add 1 to the value , so symptom counted.
      * @param symptomsList list returned from ReadSymptoms
-     * @return TreeMap contains the result which will be send to WriteSymptoms
+     * @return List of symptoms objets
+     * @see Symptom
      * @see FileController
      */
     @Override
     public List<Symptom> countSymptoms(List<String> symptomsList){
 
-        //symptomsList = sortSymptoms(symptomsList);
-
-        /*
-         * TreeMap will put Symptoms on alphabetic order
-         */
-       Map symptomsMap = new HashMap<String,Integer>();
-       List<Symptom> symptomsListCounted= new ArrayList<Symptom>();
+        // HashMap used to count Symptoms
+        Map<String,Integer> symptomsMap = new HashMap<>();
+        List<Symptom> symptomsListCounted= new ArrayList<>();
 
         try{
             for (String symptom : symptomsList) {
-                Integer counter = (Integer) symptomsMap.get(symptom);
-                /*
-                 * if Symptom does not exist in the list , new (key value) will be created
-                 */
+                Integer counter = symptomsMap.get(symptom);
+
+                // if Symptom does not exist in the list , new (key value) will be created
                 symptomsMap.put(symptom, (counter == null) ? 1 : counter + 1);}
 
-            symptomsMap.forEach((k,v)-> {
-                symptomsListCounted.add(new Symptom((String)k,(Integer)v));
-
-            });
+            symptomsMap.forEach((k,v)-> symptomsListCounted.add(new Symptom(k, v)));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -46,15 +43,21 @@ public class SystemServices  implements ISystemService{
    }
 
     /**
-     * another way to sort
-     * you can always use Array.sort()
-     * @param symptoms : contain list of symptoms
-     * @return sorted list
+     * Sort Symptoms by name alphabetically in descending order
+     * @param symptomsListCounted : contain list of symptoms counted by countSymptoms method
+     * @return sorted list of symptoms objects
      */
     @Override
-    public List<Symptom> sortSymptoms(List<Symptom> symptoms) {
+    public List<Symptom> sortSymptoms(List<Symptom> symptomsListCounted) {
 
-       symptoms.sort(Comparator.comparing(Symptom::getSymptomName));
-       return symptoms;
+        /*
+           - comparator.comparing will sort and return result in the same symptomsListCounted
+             The Double Colon Operator started in Java 8
+             Comparator c = (symptom s1, symptom s2) -> s1.getSymptomName().compareTo(s2.getSymptomName());
+             Note: sorting is case sensitive ,
+               for case insensitive add  String.CASE_INSENSITIVE_ORDER as second parameter to  comparing method
+        */
+        symptomsListCounted.sort(Comparator.comparing(Symptom::getSymptomName));
+        return symptomsListCounted;
     }
 }

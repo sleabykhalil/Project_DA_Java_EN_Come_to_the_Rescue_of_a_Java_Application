@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- *
  * Read list of symptoms from input file and write symptoms in result file,
- * @see ISystemService the results are counted and ordered
+ * @see ISystemService the results are counted and sorted
  */
 public interface IFileController {
 
@@ -20,8 +19,8 @@ public interface IFileController {
 	List<String> readSymptoms ();
 
 	/**
-	 * This function to write the results in file
-	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
+	 * This function to write the results in output file
+	 * @param symptomCountedOrderedList List of Symptoms counted sorted
 	 */
-    void writeSymptoms(ArrayList<Symptom> symptomsList);
+    void writeSymptoms(ArrayList<Symptom> symptomCountedOrderedList);
 }

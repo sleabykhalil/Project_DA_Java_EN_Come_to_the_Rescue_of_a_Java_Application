@@ -1,15 +1,23 @@
 package com.hemebiotech.analytics;
 
+/**
+ * Symptom class with two attributes
+ *      symptom name
+ *      symptom repetition
+ * for future needs new attributes can be added
+ */
+
 public class Symptom {
     private String symptomName;
     private Integer symptomRepetition;
 
-
+    // constructor can set name and repetition, will be used after counting symptoms
     public Symptom(String symptomName, Integer symptomRepetition) {
         this.symptomName = symptomName;
         this.symptomRepetition = symptomRepetition;
     }
 
+    // setters and getters
     public String getSymptomName() {
         return symptomName;
     }
