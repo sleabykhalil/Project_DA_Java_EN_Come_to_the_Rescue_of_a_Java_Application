@@ -5,7 +5,7 @@ import java.util.*;
 
 
 /**
- * Handle reading and writing to files
+ * Handle files reading and writing.
  * files paths can be changed from properties file named defaultProperties
  */
 
@@ -28,11 +28,22 @@ public class FileController implements IFileController {
 		this.destinationFilepath = destinationFilepath;
 	}
 
+
+	/**
+	 * Constructor read paths from properties file
+	 */
+	public FileController() {
+		try {
+			this.getPaths();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * get File paths from defaultProperties file and set them to source and destination
 	 * @exception FileNotFoundException files name and path fixed as default
 	 */
-
 	public void getPaths()  {
 		try {
 			Properties defaultProps = new Properties();
@@ -51,18 +62,6 @@ public class FileController implements IFileController {
 		}
 	}
 
-	/**
-	 * Constructor read paths from properties file
-	 */
-	public FileController() {
-
-		try {
-			this.getPaths();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	/**
 	 * Read symptoms from input file
@@ -90,10 +89,10 @@ public class FileController implements IFileController {
 
 	/**
 	 * Write symptoms in output file after counting
-	 * @param symptomsList Symptoms counted and ordered
+	 * @param symptomCountedOrderedList Symptoms counted and ordered
 	 */
 	@Override
-	public void writeSymptoms(ArrayList<Symptom> symptomsList) {
+	public void writeSymptoms(ArrayList<Symptom> symptomCountedOrderedList) {
 		if (destinationFilepath != null) {
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFilepath));
@@ -102,7 +101,7 @@ public class FileController implements IFileController {
 				  				for (Map.Entry<String, Integer> symptom : symptomsMap.entrySet()) {
 				  					writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n"); }
 				 */
-				symptomsList.forEach(symptom -> {
+				symptomCountedOrderedList.forEach(symptom -> {
 					try {
 						writer.write( symptom.getSymptomName() + " : " + symptom.getSymptomRepetition() + "\n");
 					} catch (IOException e) {
