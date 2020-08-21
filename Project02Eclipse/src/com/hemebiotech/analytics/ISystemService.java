@@ -20,12 +20,12 @@ public interface ISystemService {
      * @param symptoms list returns from GetSymptoms function
      * @return Map contains all items without duplicates as keys and how many times they appears as values
      */
-    Map<String,Integer> countSymptoms(List<String> symptoms);
+    List<Symptom> countSymptoms(List<String> symptoms);
 
     /**
      * sort symptoms alphabetically
-     * @param symptoms
-     * @return
+     * @param symptoms list of Symptom read from input File
+     * @return sorted list of symptoms
      */
-    List<String> sortSymptoms(List<String> symptoms);
+    List<Symptom> sortSymptoms(List<Symptom> symptoms);
 }

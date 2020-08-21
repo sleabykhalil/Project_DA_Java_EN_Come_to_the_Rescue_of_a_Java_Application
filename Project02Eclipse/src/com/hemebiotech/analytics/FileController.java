@@ -1,10 +1,7 @@
 package com.hemebiotech.analytics;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.*;
 
 
 /**
@@ -93,12 +90,11 @@ public class FileController implements IFileController {
 
 	/**
 	 * Write symptoms in output file after counting
-	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
+	 * @param symptomsList Symptoms counted and ordered
 	 */
 	@Override
-	public void writeSymptoms(TreeMap<String, Integer> symptomsMap) {
+	public void writeSymptoms(ArrayList<Symptom> symptomsList) {
 		if (destinationFilepath != null) {
-
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFilepath));
 				/*
@@ -106,10 +102,9 @@ public class FileController implements IFileController {
 				  				for (Map.Entry<String, Integer> symptom : symptomsMap.entrySet()) {
 				  					writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n"); }
 				 */
-
-				symptomsMap.forEach((k,v)-> {
+				symptomsList.forEach(symptom -> {
 					try {
-						writer.write(k + " : " + v + "\n");
+						writer.write( symptom.getSymptomName() + " : " + symptom.getSymptomRepetition() + "\n");
 					} catch (IOException e) {
 						e.printStackTrace();
 						System.out.println("Output file cannot be created");

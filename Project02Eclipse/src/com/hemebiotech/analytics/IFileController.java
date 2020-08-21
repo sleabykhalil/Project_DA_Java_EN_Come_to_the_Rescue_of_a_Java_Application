@@ -1,5 +1,6 @@
 package com.hemebiotech.analytics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -22,7 +23,5 @@ public interface IFileController {
 	 * This function to write the results in file
 	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
 	 */
-	void writeSymptoms(TreeMap<String,Integer> symptomsMap) ;
-
-
+    void writeSymptoms(ArrayList<Symptom> symptomsList);
 }
