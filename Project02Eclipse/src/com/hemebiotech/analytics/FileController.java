@@ -1,18 +1,16 @@
 package com.hemebiotech.analytics;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.*;
 
 
 /**
- * Handle reading and writing to files
+ * Handle files reading and writing.
  * files paths can be changed from properties file named defaultProperties
  */
 
 public class FileController implements IFileController {
+
 
 	/**
 	 *  sourceFilepath a full or partial path to file with symptom strings in it, one per line
@@ -30,11 +28,22 @@ public class FileController implements IFileController {
 		this.destinationFilepath = destinationFilepath;
 	}
 
+
+	/**
+	 * Constructor read paths from properties file
+	 */
+	public FileController() {
+		try {
+			this.getPaths();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * get File paths from defaultProperties file and set them to source and destination
 	 * @exception FileNotFoundException files name and path fixed as default
 	 */
-
 	public void getPaths()  {
 		try {
 			Properties defaultProps = new Properties();
@@ -53,25 +62,13 @@ public class FileController implements IFileController {
 		}
 	}
 
-	/**
-	 * Constructor read paths from properties file
-	 */
-	public FileController() {
-
-		try {
-			this.getPaths();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	/**
 	 * Read symptoms from input file
 	 * @return List of string every element contains line from the file ,one symptom par line
 	 */
 	@Override
-	public List<String> ReadSymptoms() {
+	public List<String> readSymptoms() {
 		ArrayList<String> result = new ArrayList<>();
 		if (sourceFilepath != null) {
 			try {
@@ -92,12 +89,11 @@ public class FileController implements IFileController {
 
 	/**
 	 * Write symptoms in output file after counting
-	 * @param symptomsMap Symptoms counted and they will be ordered as they are in TreeMap
+	 * @param symptomCountedOrderedList Symptoms counted and ordered
 	 */
 	@Override
-	public void WriteSymptoms(TreeMap<String, Integer> symptomsMap) {
+	public void writeSymptoms(ArrayList<Symptom> symptomCountedOrderedList) {
 		if (destinationFilepath != null) {
-
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFilepath));
 				/*
@@ -105,10 +101,9 @@ public class FileController implements IFileController {
 				  				for (Map.Entry<String, Integer> symptom : symptomsMap.entrySet()) {
 				  					writer.write(symptom.getKey() + " = " + symptom.getValue() + "\n"); }
 				 */
-
-				symptomsMap.forEach((k,v)-> {
+				symptomCountedOrderedList.forEach(symptom -> {
 					try {
-						writer.write(k + " : " + v + "\n");
+						writer.write( symptom.getSymptomName() + " : " + symptom.getSymptomRepetition() + "\n");
 					} catch (IOException e) {
 						e.printStackTrace();
 						System.out.println("Output file cannot be created");
